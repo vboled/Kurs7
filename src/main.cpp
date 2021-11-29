@@ -1,5 +1,9 @@
 #include "../include/Kurs7.h"
 
 int main() {
-    cout << "Hello, world!!!" << endl;
+    
+    Kurs7 k = Kurs7();
+
+    k.axisymmetric();
+
 }
