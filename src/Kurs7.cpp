@@ -2,22 +2,25 @@
 
 void Kurs7::printSystem(vector<double> &a, vector<double> &b, vector<double> &c,
                 vector<double> &r) {
-    double step = (A - B) / N;
+    double h = (B - A) / N;
     for (size_t i = 0; i < c.size(); i++) {
         int j = 0, k = c.size() - 1;
-        while (j++ < i)
-            cout << "0 ";
-        cout << a[i] << " " << b[i] << " " << c[i] << " ";
-        while (k-- >= j)
-            cout << "0 ";
+        while (++j < i)
+            cout << 0 << " ";
+        if (i)
+            cout << a[i] << " ";
+        cout << b[i] << " ";
+        if (i != k)
+            cout << c[i] << " ";
+        while (k-- > j)
+            cout << 0 << " ";
         cout << "| " << r[i] << endl;
     }
 }
 
 void Kurs7::outPutRes(vector<double> &res, ofstream &out) {
-    out << 0 << " ";
+    double step = (B - A) / (N-1);
     for (int i = 0; i < res.size(); i++) {
-        out << res[i] << " ";
+        out << A + step * (i) << " " << res[i] << endl;
     }
-    out << endl;
 }

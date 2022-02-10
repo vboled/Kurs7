@@ -2,36 +2,34 @@
 
 void Kurs7::setSystemAxis(vector<double> &a, vector<double> &b, vector<double> &c,
                 vector<double> &r) {
-    double h = (A - B) / N;
-    double lamPlusMu = lambda() + mu();
+    double h = (B - A) / N;
+    double lamPlusMu = lambda() + 2 * mu();
 
     for (int i = 0; i < a.size(); i++) {
         if (i == 0) {
-            r[0] = (P_a * A);
-            b[0] = lamPlusMu * ((ri(0) + ri(1)) / 2 / h + 
-            (ri(1) - 3 * ri(0)) / 2 / h + log(ri(1) / ri(0))) -
-            lambda() * (3 * ri(1) + ri(0)) / 2 / h;
-            c[i] = lamPlusMu / pow(h, 2) * (ri(i) * ri(i + 1) * log(ri(i) / ri(i+1)));
-        } else if (i == a.size() - 1){
-            r[a.size() - 1] = (P_b * B);
-            b[a.size() - 1] = lamPlusMu * ((ri(N) + ri(N-1)) / 2 / h +
-            pow(ri(N), 2) * log(ri(N) / ri(N-1)) - 0.5) + lambda();
-            a[i] =  lamPlusMu / pow(h, 2) * (ri(i) * ri(i - 1) * log(ri(i - 1) / ri(i)));
+            r[0] = -(P_a * A);
+            r[a.size() - 1] = -(P_b * B);
+            // b[0] = lamPlusMu * ((ri(i) + ri(i+1)) / (2 * (ri(i) - ri(i+1))) + 0.5 + pow(ri(i+1), 2) * log(ri(i+1) / ri(i)) / pow(ri(i) - ri(i+1), 2)) + lambda();
+            b[0] = -lambda() - lamPlusMu + (lamPlusMu * pow(ri(i+1), 2) * log(ri(i+1) / ri(i)) / pow(ri(i) - ri(i+1), 2));
+            c[0] = lamPlusMu * ri(i) * ri(i+1) * log(ri(i) / ri(i+1)) / pow(ri(i) - ri(i+1), 2);
         } else {
-            a[i] =  lamPlusMu / pow(h, 2) * (ri(i) * ri(i - 1) * log(ri(i - 1) / ri(i)));
-            
-            b[i] = lamPlusMu / pow(h, 2) * (h* (2 * ri(i) - ri(i-1) - ri(i+1)) / 2 +
-            pow(ri(i+1), 2) * log(ri(i+1) / ri(i)) +
-            pow(ri(i-1), 2) * log(ri(i-1)/ ri(i)));
-            
-            c[i] = lamPlusMu / pow(h, 2) * (ri(i) * ri(i + 1) * log(ri(i) / ri(i+1)));
+            // a[i] = lamPlusMu * (ri(i) * ri(i-1) * log(ri(i-1) / ri(i)) / (pow(ri(i) - ri(i-1), 2)));
+            a[i] = lamPlusMu * ri(i-1) * ri(i) *log(ri(i-1) / ri(i)) / pow(ri(i-1) - ri(i), 2);
+            // c[i] = lamPlusMu * (ri(i) * ri(i+1) * log(ri(i) / ri(i+1)) / (pow(ri(i) - ri(i+1), 2)));
+            c[i] = lamPlusMu * ri(i) * ri(i+1) * log(ri(i) / ri(i+1)) / pow(ri(i) - ri(i+1), 2); // may be segfualt
+            b[i] = lambda() + lamPlusMu + (lamPlusMu * pow(ri(i-1), 2) * log(ri(i) / ri(i-1)) / pow(ri(i-1) - ri(i),2));
+            if (i != a.size() - 1) 
+                b[i] += -lambda() - lamPlusMu + (lamPlusMu * pow(ri(i+1), 2) * log(ri(i+1) / ri(i)) / pow(ri(i) - ri(i+1), 2)); 
         }
     }
 }
 
 void Kurs7::axisymmetric() {
-    double h = (A - B) / N;
+    double h = (B - A) / N;
     vector<double> a(N), b(N), c(N), r(N), res;
+
+    // cout << mu() << endl;
+    // cout << lambda() << endl;
 
     ofstream out("axis.txt");
     ofstream outSet("axisSettings.txt");

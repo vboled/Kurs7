@@ -15,27 +15,29 @@ private:
 
     double N = 10;
 
-    double A = 3;
-    double B = 4;
-    double P_a = 10e5;
-    double P_b = 10e7;
-    double nu = 0.25;
-    double E = 2e9;
+    double A = 0.03;
+    double B = 0.04;
+    double P_a = 0;
+    double P_b = 10e6;
+    double nu = 0.3;
+    double E = 200e9;
 
     // 
     vector<double> progonka(vector<double> a, vector<double> b,
 								vector<double> c, vector<double> r);
     double relativeError();
     double absoluteError();
+
     double lambda() {
         return nu * E / (1 + nu) / (1 - 2 * nu);
     }
+    
     double mu() {
         return E / 2 / (1 + nu);
     }
 
     double ri(int i) {
-        return A + (A - B) / N * i;
+        return A + (B - A) / (N-1) * i;
     }
     void printSystem(vector<double> &a, vector<double> &b, vector<double> &c,
                 vector<double> &r);
