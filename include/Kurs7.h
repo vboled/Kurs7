@@ -13,18 +13,20 @@ class Kurs7 {
 
 private:
 
-    double N = 10;
+    double N = 1000;
 
     double A = 0.03;
     double B = 0.04;
     double P_a = 0;
-    double P_b = 10e6;
+    double P_b = 10e4;
     double nu = 0.3;
-    double E = 200e9;
+    double E = 2e8;
 
     // 
     vector<double> progonka(vector<double> a, vector<double> b,
 								vector<double> c, vector<double> r);
+    vector<double> Gauss(vector<double> a, vector<double> b,
+                                vector<double> c, vector<double> f);
     double relativeError();
     double absoluteError();
 
