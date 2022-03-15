@@ -22,18 +22,56 @@ void Kurs7::setSystemAxis(vector<double> &a, vector<double> &b, vector<double> &
         }
         if (i == a.size() - 1)
             c[i] = 0.0;
-        outa << a[i] << " " << i << endl;
-        outb << b[i] << " " << i << endl;
-        outc << c[i] << " " << i << endl;
     }
+}
+
+double Kurs7::exactSigmaFF(double r) {
+    return (P_a * A * A - P_b * B * B) / 
+           (B * B - A * A) + (A * A * B * B) / 
+           pow(r, 2) * (P_a - P_b) / (B * B - A * A);
+}
+
+double Kurs7::exactSigmaRR(double r) {
+    return (P_a  * A * A - P_b * B * B) / 
+    (B * B - A * A) - (A * A * B * B) / 
+    pow(r, 2) * (P_a - P_b) / (B * B - A * A);
+}
+
+void Kurs7::outSigmaRR(vector<double> &res) {
+    ofstream out("sigmaRR.txt");
+    double error = 0;
+    double h = (B - A) / N;
+    for (int i = 1; i < N; i++) {
+        double r = A + (i - 0.5) * h;
+        out << r << " ";
+        double tmp = (lambda() + 2 * mu()) * (res[i] / h - res[i - 1] / h) + lambda() * 0.5 * 
+        (res[i] + res[i-1]) / r;
+        out << tmp << "\n";
+        if (abs(tmp - exactSigmaRR(r)) > error) 
+            error = abs(tmp - exactSigmaRR(r));
+    }
+    cout << "sigmaRR Error = " << error << endl;
+}
+
+void Kurs7::outSigmaFF(vector<double> &res) {
+    ofstream out("sigmaFF.txt");
+    double h = (B - A) / N;
+    double error = 0;
+    for (int i = 1; i < N; i++) {
+        double r = A + (i - 0.5) * h;
+        out << r << " ";
+        double tmp = lambda() * (res[i] / h - res[i - 1] / h) + (lambda() + 2 * mu()) * 0.5 * 
+        (res[i] + res[i-1]) / r;
+        out << tmp << "\n";
+        if (abs(tmp - exactSigmaFF(r)) > error) 
+            error = abs(tmp - exactSigmaFF(r));
+    }
+    cout << "sigmaFF Error = " << error << endl;
 }
 
 void Kurs7::axisymmetric() {
     double h = (B - A) / N;
     vector<double> a(N), b(N), c(N), r(N), res;
-
-    // cout << mu() << endl;
-    // cout << lambda() << endl;
 
     ofstream out("axis.txt");
     ofstream outSet("axisSettings.txt");
@@ -49,4 +87,6 @@ void Kurs7::axisymmetric() {
     res = progonka(a, b, c, r);
     // res = Gauss(a, b, c, r);
     outPutRes(res, out);
+    outSigmaRR(res);
+    outSigmaFF(res);
 }

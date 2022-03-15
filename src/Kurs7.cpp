@@ -16,6 +16,7 @@ void Kurs7::printSystem(vector<double> &a, vector<double> &b, vector<double> &c,
             cout << 0 << " ";
         cout << "| " << r[i] << endl;
     }
+    cout << endl;
 }
 
 void Kurs7::outPutRes(vector<double> &res, ofstream &out) {
