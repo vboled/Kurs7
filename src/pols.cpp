@@ -61,22 +61,22 @@ void Kurs7::pols() {
 
         outPutRes(res, out);
 
-        for (int i = 0; i < N; i++) {
+        for (int i = 1; i < N; i++) {
             double r = A + (i - 0.5) * h;
 
             double epsFF = (lambda() + 2 * mu()) * (res[i] / h - res[i - 1] / h) + lambda() * 0.5 * 
                             (res[i] + res[i-1]) / r;
             double epsRR = lambda() * (res[i] / h - res[i - 1] / h) + (lambda() + 2 * mu()) * 0.5 * 
                             (res[i] + res[i-1]) / r;
-
+            cout << epsFF << " " << epsRR << endl; 
             double sigmaRR = (lambda() + 2 * mu()) * (epsRR - polsRR[i]) + lambda() * (epsFF - polsFF[i]);
             double sigmaFF = lambda() * (lambda() + 2 * mu()) * (epsRR - polsRR[i]) + (lambda() + 2 * mu()) * (epsFF - polsFF[i]);
 
             polsRR[i] += 9.0 / 4.0 * OMEGA * tau * (sigmaRR * sigmaRR + sigmaFF * sigmaFF) * (sigmaRR - sigmaFF) / 2;
             polsFF[i] += 9.0 / 4.0 * OMEGA * tau * (sigmaRR * sigmaRR + sigmaFF * sigmaFF) * (sigmaFF - sigmaRR) / 2;
         }
-        if (i == 2)
-            break;
+        // if (i == 2)
+            // break;
     }
     
     // res = Gauss(a, b, c, r);
