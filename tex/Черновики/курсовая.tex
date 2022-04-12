@@ -315,25 +315,246 @@
 % u_1 = -6.54286\cdot 10^{-6}
 % $$
 
-% Fifth
-Параметры системы:
+% % Fifth
+% Параметры системы:
+% $$
+%     a = 0.03 \text{м}, \quad b = 0.04 \text{м},\quad p_a = 0 \text{Па},\quad
+%     p_b = 10^6 \text{Па},\quad \nu = 0.3,\quad E = 2 \cdot 10^{11}  \text{Па}
+% $$
+% Аналитическое решения из Феодосьева:
+% \begin{figure}[H]
+%     \center{\includegraphics[scale=0.5]{Resh.png}}
+%     \label{fig:image}
+% \end{figure}
+% Аналитическое решение (9.12) и приближенное:
+% \begin{figure}[H]
+%     \center{\includegraphics[scale=0.7]{1.pdf}}
+%     \label{fig:image}
+% \end{figure}
+% Система при 10 узлах:
+% \begin{figure}[H]
+%     \center{\includegraphics[scale=1]{Sist.png}}
+%     \label{fig:image}
+% \end{figure}
+
+% Sixth
+% Параметры системы:
+% $$
+%     a = 0.03 \text{м}, \quad b = 0.04 \text{м},\quad p_a = 0 \text{Па},\quad
+%     p_b = 10^6 \text{Па},\quad \nu = 0.3,\quad E = 2 \cdot 10^{11}  \text{Па}
+% $$
+% Выражение для $\sigma_{rr}$:
+% \begin{equation}
+%     \begin{gathered}
+%     \sigma_{r r}=(\lambda+2 \mu) \varepsilon_{r r}+\lambda \varepsilon_{\varphi \varphi} = 
+%     (\lambda+2 \mu) \dfrac{\partial u}{\partial r}+\lambda \dfrac{u}{r} = \\
+%     = (\lambda+2 \mu) \left(u_{i-1} \dfrac{\partial N_{i-1}}{\partial r} + u_{i} \dfrac{\partial N_{i}}{\partial r}
+%     \right)+\lambda \dfrac{\frac{1}{2} (u_{i-1} + u_i)}{r_{i-\frac{1}{2}}} = \\
+%     = (\lambda+2 \mu) \dfrac{u_i - u_{i-1}}{h} + \lambda \dfrac{\frac{1}{2} (u_{i-1} + u_i)}{a + (i - 0.5)h}, \quad i = 1,...,n;
+%     \end{gathered}
+% \end{equation}
+% Аналитическое радиальное напряжение из Феодосьева:
+% $$
+% \sigma_{rr}=\frac{p_{a} a^{2}-p_{b} b^{2}}{b^{2}-a^{2}} + \frac{a^{2} b^{2}}{r^{2}} \frac{p_{a}-p_{b}}{b^{2}-a^{2}}
+% $$
+% Численное решение и аналитическое при 10 узлах:
+% \begin{figure}[H]
+%     \center{\includegraphics[scale=0.7]{6.3.pdf}}
+%     \label{fig:image}
+% \end{figure}
+% Абсолютная ошибка: $2.38346 \cdot 10^6$.\\
+% Численное решение и аналитическое при 100 узлах:
+% \begin{figure}[H]
+%     \center{\includegraphics[scale=0.7]{6.2.pdf}}
+%     \label{fig:image}
+% \end{figure}
+% Абсолютная ошибка: 256251.\\
+% Численное решение и аналитическое при 200 узлах:
+% \begin{figure}[H]
+%     \center{\includegraphics[scale=0.7]{6.1.pdf}}
+%     \label{fig:image}
+% \end{figure}
+% Абсолютная ошибка: 139355. \\
+% исленное решение и аналитическое при 400 узлах:
+% \begin{figure}[H]
+%     \center{\includegraphics[scale=0.7]{6.5.pdf}}
+%     \label{fig:image}
+% \end{figure}
+% Абсолютная ошибка: 146850. \\
+% Численное решение и аналитическое при 1000 узлах:
+% \begin{figure}[H]
+%     \center{\includegraphics[scale=0.7]{6.4.pdf}}
+%     \label{fig:image}
+% \end{figure}
+% Выражение для $\sigma_{\phi \phi}$:
+% \begin{equation}
+%     \begin{gathered}
+%     \sigma_{\phi \phi}=\lambda\dfrac{u_i - u_{i-1}}{h} + (\lambda+2 \mu) \dfrac{\frac{1}{2} (u_{i-1} + u_i)}{a + (i - 0.5)h}, \quad i = 1,...,n;
+%     \end{gathered}
+% \end{equation}
+% Аналитическое окружное напряжение из Феодосьева:
+% $$
+% \sigma_{rr}=\frac{p_{a} a^{2}-p_{b} b^{2}}{b^{2}-a^{2}} + \frac{a^{2} b^{2}}{r^{2}} \frac{p_{a}-p_{b}}{b^{2}-a^{2}}
+% $$
+% Численное решение и аналитическое при 10 узлах:
+% \begin{figure}[H]
+%     \center{\includegraphics[scale=0.7]{6.6.pdf}}
+%     \label{fig:image}
+% \end{figure}
+% Абсолютная ошибка: $1.05453\cdot 10^6$.\\
+% Численное решение и аналитическое при 100 узлах:
+% \begin{figure}[H]
+%     \center{\includegraphics[scale=0.7]{6.7.pdf}}
+%     \label{fig:image}
+% \end{figure}
+% Абсолютная ошибка: 110153.\\
+% Численное решение и аналитическое при 200 узлах:
+% \begin{figure}[H]
+%     \center{\includegraphics[scale=0.7]{6.8.pdf}}
+%     \label{fig:image}
+% \end{figure}
+% Абсолютная ошибка: 62626.5. \\
+% исленное решение и аналитическое при 400 узлах:
+% \begin{figure}[H]
+%     \center{\includegraphics[scale=0.7]{6.9.pdf}}
+%     \label{fig:image}
+% \end{figure}
+% Абсолютная ошибка: 63458.1. \\
+% Seventh
+% Параметры системы:
+% $$
+%     a = 0.03 \text{м}, \quad b = 0.04 \text{м},\quad p_a = 0 \text{Па},\quad
+%     p_b = 10^3 \text{Па},\quad \nu = 0.3,\quad E = 2 \cdot 10^{8}  \text{Па}
+% $$
+% Радиальное напряжение:\\
+% Численное решение и аналитическое при 100 узлах:
+% \begin{figure}[H]
+%     \center{\includegraphics[scale=0.7]{7.1.pdf}}
+%     \label{fig:image}
+% \end{figure}
+% Абсолютная ошибка: 2562.51.\\
+% Численное решение и аналитическое при 200 узлах:
+% \begin{figure}[H]
+%     \center{\includegraphics[scale=0.7]{7.1.pdf}}
+%     \label{fig:image}
+% \end{figure}
+% Абсолютная ошибка: 1393.55. \\
+% исленное решение и аналитическое при 400 узлах:
+% \begin{figure}[H]
+%     \center{\includegraphics[scale=0.7]{7.3.pdf}}
+%     \label{fig:image}
+% \end{figure}
+
+% Численное решение и аналитическое при 1000 узлах:
+% \begin{figure}[H]
+%     \center{\includegraphics[scale=0.7]{7.4.pdf}}
+%     \label{fig:image}
+% \end{figure}
+% Абсолютная ошибка: 2754.61. \\
+% Окружное напряжение:\\
+% Численное решение и аналитическое при 100 узлах:
+% \begin{figure}[H]
+%     \center{\includegraphics[scale=0.7]{7.11.pdf}}
+%     \label{fig:image}
+% \end{figure}
+% Абсолютная ошибка: 1101.53.\\
+% Численное решение и аналитическое при 200 узлах:
+% \begin{figure}[H]
+%     \center{\includegraphics[scale=0.7]{7.21.pdf}}
+%     \label{fig:image}
+% \end{figure}
+% Абсолютная ошибка: 626.265. \\
+% исленное решение и аналитическое при 400 узлах:
+% \begin{figure}[H]
+%     \center{\includegraphics[scale=0.7]{7.31.pdf}}
+%     \label{fig:image}
+% \end{figure}
+% Абсолютная ошибка: 634.581. \\
+% Численное решение и аналитическое при 1000 узлах:
+% \begin{figure}[H]
+%     \center{\includegraphics[scale=0.7]{7.41.pdf}}
+%     \label{fig:image}
+% \end{figure}
+% Абсолютная ошибка: 1186.92. \\
+%8th
+% Параметры системы:
+% $$
+%     a = 0.03 \text{м}, \quad b = 0.04 \text{м},\quad p_a = 0 \text{Па},\quad
+%     p_b = 10^3 \text{Па},\quad \nu = 0.3,\quad E = 2 \cdot 10^{8}  \text{Па}
+% $$
+% \begin{figure}[h]
+%     \begin{minipage}[h]{0.49\linewidth}
+%     \center{\includegraphics[width=1\linewidth]{8.1.pdf} \\ absError = $2398.88$}
+%     \end{minipage}
+%     \hfill
+%     \begin{minipage}[h]{0.49\linewidth}
+%     \center{\includegraphics[width=1\linewidth]{8.2.pdf} \\ absError = $1031.29$}
+%     \end{minipage}\\
+%     \caption{Радиальное и окружное напряжения. N = 100}
+% \end{figure}
+    
+% \begin{figure}[h]
+%     \begin{minipage}[h]{0.49\linewidth}
+%     \center{\includegraphics[width=1\linewidth]{8.3.pdf} \\ absError = $1199.73$}
+%     \end{minipage}
+%     \hfill
+%     \begin{minipage}[h]{0.49\linewidth}
+%     \center{\includegraphics[width=1\linewidth]{8.4.pdf} \\ absError = $514.962$}
+%     \end{minipage}\\
+%     \caption{Радиальное и окружное напряжения. N = 200}
+% \end{figure}
+
+% \begin{figure}[h]
+%     \begin{minipage}[h]{0.49\linewidth}
+%     \center{\includegraphics[width=1\linewidth]{8.5.pdf} \\ absError = $599.933$}
+%     \end{minipage}
+%     \hfill
+%     \begin{minipage}[h]{0.49\linewidth}
+%     \center{\includegraphics[width=1\linewidth]{8.6.pdf} \\ absError = $257.307$}
+%     \end{minipage}\\
+%     \caption{Радиальное и окружное напряжения. N = 400}
+% \end{figure}
+
+% \begin{figure}[h]
+%     \begin{minipage}[h]{0.49\linewidth}
+%     \center{\includegraphics[width=1\linewidth]{8.7.pdf} \\ absError = $239.989$}
+%     \end{minipage}
+%     \hfill
+%     \begin{minipage}[h]{0.49\linewidth}
+%     \center{\includegraphics[width=1\linewidth]{8.8.pdf} \\ absError = $102.676$}
+%     \end{minipage}\\
+%     \caption{Радиальное и окружное напряжения. N = 1000}
+% \end{figure}
+
+%9th
+\begin{equation}
+    \begin{gathered}
+    R_{\varepsilon^c_i} = \int\limits_{r_{i-1}}^{r_{i}} \bigl[\dfrac{\partial N_i}{\partial r} \quad \dfrac{ N_i}{r}\bigr] 
+    \bigl[D\bigr]\{\varepsilon^c_i\}dr +
+    \int\limits_{r_{i}}^{r_{i+1}} \bigl[\dfrac{\partial N_{i+1}}{\partial r} \quad \dfrac{ N_{i+1}}{r}\bigr] 
+    \bigl[D\bigr]\{\varepsilon^c_{i+1}\}dr,
+    \end{gathered}
+\end{equation}
 $$
-    a = 0.03 \text{м}, \quad b = 0.04 \text{м},\quad p_a = 0 \text{Па},\quad
-    p_b = 10^6 \text{Па},\quad \nu = 0.3,\quad E = 2 \cdot 10^{11}  \text{Па}
+[D]=\left[\begin{array}{cc}
+\lambda+2 \mu & \lambda \\
+\lambda & \lambda+2 \mu
+\end{array}\right]
 $$
-Аналитическое решения из Феодосьева:
-\begin{figure}[H]
-    \center{\includegraphics[scale=0.5]{Resh.png}}
-    \label{fig:image}
-\end{figure}
-Аналитическое решение (9.12) и приближенное:
-\begin{figure}[H]
-    \center{\includegraphics[scale=0.7]{1.pdf}}
-    \label{fig:image}
-\end{figure}
-Система при 10 узлах:
-\begin{figure}[H]
-    \center{\includegraphics[scale=1]{Sist.png}}
-    \label{fig:image}
-\end{figure}
+
+$$
+\left[\varepsilon_{i}^{c}\right\}=\left(\begin{array}{l}
+\varepsilon_{rr, i}^{c} \\
+\varepsilon_{\varphi \varphi, i}^{c}
+\end{array}\right)
+$$
+
+\begin{equation}
+    \begin{gathered}
+    R_{\varepsilon^c_i} = \int\limits_{r_{i-1}}^{r_{i}} \varepsilon_{rr, i}^c \Big(\big(\lambda+2 \mu\big) \dfrac{\partial N_i}{\partial r} r + \lambda N_i\Big) + 
+    \varepsilon_{\varphi \varphi, i}^c \Big(\lambda \dfrac{\partial N_i}{\partial r} r + \big(\lambda+2 \mu\big) N_i\Big) dr + \\
+    + \int\limits_{r_{i}}^{r_{i+1}} \varepsilon_{rr, i+1}^c \Big(\big(\lambda+2 \mu\big) \dfrac{\partial N_{i+1}}{\partial r} r + \lambda N_{i+1}\Big) + 
+    \varepsilon_{\varphi \varphi, i+1}^c \Big(\lambda \dfrac{\partial N_{i+1}}{\partial r} r + \big(\lambda+2 \mu\big) N_{i+1}\Big) dr.
+    \end{gathered}
+\end{equation} 
 \end{document} 

@@ -9,7 +9,7 @@ void Kurs7::setSystemAxis(vector<double> &a, vector<double> &b, vector<double> &
     ofstream outc("c.txt");
     for (int i = 0; i < a.size(); i++) {
         if (i == 0) {
-            r[0] = -(P_a * A);
+            r[0] = (P_a * A);
             r[a.size() - 1] = -(P_b * B);
             b[0] = -lambda() - lamPlusMu + (lamPlusMu * pow(ri(i+1), 2) * log(ri(i+1) / ri(i)) / pow(ri(i) - ri(i+1), 2));
             c[0] = lamPlusMu * ri(i) * ri(i+1) * log(ri(i) / ri(i+1)) / pow(ri(i) - ri(i+1), 2);

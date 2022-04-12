@@ -13,17 +13,17 @@ class Kurs7 {
 
 private:
 
-    double N = 10;
+    double N = 200;
     double M = 100;
 
     double A = 0.03;
     double B = 0.04;
-    double P_a = 0;
-    double P_b = 10e4;
+    double P_a = 10e4;
+    double P_b = 0;
     double nu = 0.3;
     double E = 2e8;
     double T = 1;
-    double OMEGA = 10e-31;
+    double OMEGA = 6 * 10e-21;
     // 
     vector<double> progonka(vector<double> a, vector<double> b,
 								vector<double> c, vector<double> r);
@@ -48,6 +48,7 @@ private:
     void outPutRes(vector<double> &res, ofstream &out);
     void outSigmaRR(vector<double> &res);
     void outSigmaFF(vector<double> &res);
+    void outSigmaPols(vector<double> &res, ofstream &out);
     double exactSigmaRR(double r);
     double exactSigmaFF(double r);
 
