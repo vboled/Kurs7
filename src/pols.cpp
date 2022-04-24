@@ -29,6 +29,19 @@ void Kurs7::outSigmaPols(vector<double> &res, ofstream &out) {
     out << endl;
 }
 
+double Kurs7::exactSigmaFFPols(double r) {
+    double n = 3.0;
+    return (P_a * pow(A, 2 / n)) / (pow(B, 2 / n) - pow(A, 2 / n)) * 
+        (1 + (2 - n) / n * pow(B, 2 / n) / pow(r, 2/n));
+}
+
+double Kurs7::exactSigmaRRPols(double r) {
+    double n = 3.0;
+    return (P_a * pow(A, 2 / n)) / (pow(B, 2 / n) - pow(A, 2 / n)) * 
+        (1 - pow(B, 2 / n) / pow(r, 2/n));
+}
+
+
 void Kurs7::pols() {
     double h = (B - A) / N;
     double tau = T / (M - 1);
@@ -36,6 +49,8 @@ void Kurs7::pols() {
 
     ofstream out("pols.txt");
     ofstream outSigmaFF("sigmaFFPols.txt");
+    ofstream outSigmaFFAbsError("sigmaFFPolsAbsError.txt");
+    ofstream outSigmaFFLError("sigmaFFPolsLError.txt");
     ofstream outSigmaRR("sigmaRRPols.txt");
     ofstream outSet("polsSettings.txt");
     outSet << h << endl;
@@ -48,12 +63,18 @@ void Kurs7::pols() {
     outSet << T << endl;
     outSet << M << endl;
 
+    double minAbs = 0, minL = 0;
+    double absTime = 0, lTime = 0;
+
     setSystemAxis(a, b, c, r); // задаем систему только с упругостью
     for (int k = 0; k < M; k++) {
         setSystemPols(a, b, c, r, polsRR, polsFF); // добавляем ползучесть
         // printSystem(a, b, c, r);
         res = progonka(a, b, c, r);
-
+        outSigmaFFAbsError << tau * k << " ";
+        outSigmaFFLError << tau * k << " ";
+        double absErrorFF = 0;
+        double sum = 0;
         for (int i = 1; i < N; i++) {
 
             double r = A + (i - 0.5) * h; // точка в между i-1 и i узлами
@@ -81,17 +102,35 @@ void Kurs7::pols() {
             polsRR[i] += tmp * sigmaRR_;
             polsFF[i] += tmp * sigmaFF_;
 
-            // polsRR[i] = 10e-4 * tau * (k + 1);
-            // // cout << polsRR[i] << endl;
-            // polsFF[i] = polsRR[i];
-            // polsRR[i] = 10e-4 * 
-            // if (i == 3)
-            //     cout << "polsRR = " << polsRR[i] << " polsFF = " << polsFF[i] << endl;
-            // cout << endl;
+            double tmpMod = fabs(sigmaRR[i] - exactSigmaRRPols(r));
+            absErrorFF = max(absErrorFF, tmpMod);
+            sum += tmpMod * tmpMod;
         }
+        
+        double sqrt_tmp = sqrt(h * sum);
+
+        if (k == 0) {
+            minAbs = absErrorFF;
+            minL = sqrt_tmp;
+        } else {
+            if (minAbs > absErrorFF) {
+                minAbs = absErrorFF;
+                absTime = tau * k;
+            }
+            if (minL > sqrt_tmp) {
+                minL = sqrt_tmp;
+                lTime = tau * k;
+            }
+        }
+        if (M - k < 4) {
         outSigmaPols(sigmaFF, outSigmaFF);
         outSigmaPols(sigmaRR, outSigmaRR);
+        }
+        outSigmaFFAbsError << absErrorFF << endl;
+        outSigmaFFLError << sqrt_tmp << endl;
         // cout << endl;
         // break;
     }
+    cout << "AbsError min = " << minAbs << ", time = " << std::fixed<< absTime << endl;
+    cout << "LError min = " << minL << ", time = " << lTime << endl; 
 }
