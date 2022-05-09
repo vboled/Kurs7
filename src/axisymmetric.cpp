@@ -32,8 +32,9 @@ double Kurs7::exactSigmaFF(double r) {
 }
 
 double Kurs7::exactSigmaRR(double r) {
-    double n = 3.0;
-    return (P_a * pow(A,(2.0/n))) / (pow(B, (2.0/n)) - pow(A,(2.0/n))) * (1 - pow(B,(2.0/n))/pow(r,(2.0/n)));
+    return (P_a * A * A - P_b * B * B) / 
+           (B * B - A * A) - (A * A * B * B) / 
+           pow(r, 2) * (P_a - P_b) / (B * B - A * A);
 }
 
 void Kurs7::outSigmaRR(vector<double> &res) {

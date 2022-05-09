@@ -14,16 +14,17 @@ class Kurs7 {
 private:
 
     double N = 100;
-    double M = 2500;
+    double T = 25;
+    double M = T * 100;
 
     double A = 0.03;
     double B = 0.04;
     double P_a = 10e5;
     double P_b = 0;
     double nu = 0.3;
-    double E = 2e8;
-    double T = 25;
-    double OMEGA = 6 * 10e-24;
+    double E = 2e11;
+    // double OMEGA = 6 * 10e-27;
+    double OMEGA = 2.3 * 10e-27;
     // 
     vector<double> progonka(vector<double> a, vector<double> b,
 								vector<double> c, vector<double> r);

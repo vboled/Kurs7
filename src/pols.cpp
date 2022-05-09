@@ -71,8 +71,8 @@ void Kurs7::pols() {
         setSystemPols(a, b, c, r, polsRR, polsFF); // добавляем ползучесть
         // printSystem(a, b, c, r);
         res = progonka(a, b, c, r);
-        outSigmaFFAbsError << tau * k << " ";
-        outSigmaFFLError << tau * k << " ";
+        outSigmaFFAbsError << tau * k * 1000000<< " ";
+        outSigmaFFLError << tau * k  * 1000000 << " ";
         double absErrorFF = 0;
         double sum = 0;
         for (int i = 1; i < N; i++) {
@@ -102,7 +102,7 @@ void Kurs7::pols() {
             polsRR[i] += tmp * sigmaRR_;
             polsFF[i] += tmp * sigmaFF_;
 
-            double tmpMod = fabs(sigmaRR[i] - exactSigmaRRPols(r));
+            double tmpMod = fabs(sigmaFF[i] - exactSigmaFFPols(r));
             absErrorFF = max(absErrorFF, tmpMod);
             sum += tmpMod * tmpMod;
         }
@@ -119,13 +119,13 @@ void Kurs7::pols() {
             }
             if (minL > sqrt_tmp) {
                 minL = sqrt_tmp;
-                lTime = tau * k;
+                lTime = k;
             }
         }
-        if (M - k < 4) {
+        // if (M - k < 4) {
         outSigmaPols(sigmaFF, outSigmaFF);
         outSigmaPols(sigmaRR, outSigmaRR);
-        }
+        // }
         outSigmaFFAbsError << absErrorFF << endl;
         outSigmaFFLError << sqrt_tmp << endl;
         // cout << endl;

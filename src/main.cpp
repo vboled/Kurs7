@@ -4,6 +4,6 @@ int main() {
     
     Kurs7 k = Kurs7();
 
-    //k.axisymmetric();
-    k.pols();
+    k.axisymmetric();
+    // k.pols();
 }
