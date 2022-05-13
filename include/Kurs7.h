@@ -13,7 +13,7 @@ class Kurs7 {
 
 private:
 
-    double N = 100;
+    double N = 10;
     double T = 25;
     double M = T * 100;
 
@@ -64,4 +64,9 @@ public:
     void setSystemPols(vector<double> &a, vector<double> &b, vector<double> &c,
                 vector<double> &r, vector<double> &polsRR, vector<double> &polsFF);
 
+    void upr2();
+    void setSystemUpr2(vector<double> &a, vector<double> &b, vector<double> &c,
+                vector<double> &d, vector<double> &e, vector<double> &r);
+    void printSystem(vector<double> &a, vector<double> &b, vector<double> &c,
+                vector<double> &d, vector<double> &e, vector<double> &r);
 };
