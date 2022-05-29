@@ -7,4 +7,5 @@ int main() {
     // k.axisymmetric();
     // k.pols();
     k.upr2();
+    // k.pols2();
 }

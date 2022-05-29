@@ -69,6 +69,70 @@ void Kurs7::outSigmaFF(vector<double> &res) {
     cout << "sigmaFF Error = " << error << endl;
 }
 
+void Kurs7::outSigmaRR2(vector<double> &res) {
+    ofstream out("sigmaRR2.txt");
+    double error = 0;
+    double h = (B - A) / (N);
+    for (int i = 1; i <= N; i++) {
+            if (i % 2) {
+            double r = riu(i);
+            out << r << " ";
+
+            vector<double> center = coefC(riu(i - 1), riu(i), riu(i + 1));
+            double a = center[0], b = center[1];
+
+            vector<double> right = coefR(riu(i - 1), riu(i), riu(i + 1));
+            double ar = right[0], br = right[1];
+
+            vector<double> left = coefL(riu(i - 1), riu(i), riu(i + 1));
+            double al = left[0], bl = left[1];
+
+            double eps_ff = res[i] / r;
+            double eps_rr = res[i - 1] * (2 * ar * r + br) + res[i] * (2*a * r + b) + res[i + 1] * (2*al * r + bl);
+
+            double tmp = lambda() * eps_ff + (lambda() + 2 * mu()) * eps_rr;
+
+            out << tmp << "\n";
+            if (abs(tmp - exactSigmaRR(r)) > error) 
+                error = abs(tmp - exactSigmaRR(r));
+        }
+    }
+    cout << "sigmaRR Error = " << error << endl;
+}
+
+void Kurs7::outSigmaFF2(vector<double> &res) {
+    ofstream out("sigmaFF2.txt");
+    double h = (B - A) / (N);
+    double error = 0;
+    for (int i = 1; i <= N; i++) {
+        if (i % 2) {
+            double r = riu(i);
+            out << r << " ";
+
+            vector<double> center = coefC(riu(i - 1), riu(i), riu(i + 1));
+            double a = center[0], b = center[1];
+
+            vector<double> right = coefR(riu(i - 1), riu(i), riu(i + 1));
+            double ar = right[0], br = right[1];
+
+            vector<double> left = coefL(riu(i - 1), riu(i), riu(i + 1));
+            double al = left[0], bl = left[1];
+
+            double eps_ff = res[i] / r;
+            double eps_rr = res[i - 1] * (2 * ar * r + br) + res[i] * (2*a * r + b) + res[i + 1] * (2*al * r + bl);
+
+            double tmp = lambda() * eps_rr + (lambda() + 2 * mu()) * eps_ff;
+
+            out << tmp << "\n";
+            if (abs(tmp - exactSigmaFF(r)) > error) 
+                error = abs(tmp - exactSigmaFF(r));
+            // cout << riu(i) << " " << abs(tmp - exactSigmaFF(r)) << endl;
+        }
+    }
+    cout << "sigmaFF Error = " << error << endl;
+}
+
+
 void Kurs7::axisymmetric() {
     double h = (B - A) / N;
     vector<double> a(N), b(N), c(N), r(N), res;
@@ -84,8 +148,8 @@ void Kurs7::axisymmetric() {
     outSet << nu << endl;
     setSystemAxis(a, b, c, r);
     // printSystem(a, b, c, r);
-    res = progonka(a, b, c, r);
-    // res = Gauss(a, b, c, r);
+    // res = progonka(a, b, c, r);
+    res = Gauss(a, b, c, r);
     outPutRes(res, out);
     outSigmaRR(res);
     outSigmaFF(res);

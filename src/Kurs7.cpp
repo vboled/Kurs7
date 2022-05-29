@@ -19,9 +19,23 @@ void Kurs7::printSystem(vector<double> &a, vector<double> &b, vector<double> &c,
     cout << endl;
 }
 
-void Kurs7::outPutRes(vector<double> &res, ofstream &out) {
-    double step = (B - A) / (N-1);
+void Kurs7::outPutResUpr(vector<double> &res, ofstream &out) {
+    double step = (B - A) / (N);
+    double error = 0;
     for (int i = 0; i < res.size(); i++) {
         out << A + step * (i) << " " << res[i] << endl;
+        double tmp = fabs(exacSolUpr(A + step * (i)) - res[i]);
+        if (tmp > error)
+            error = tmp;
+    }
+    cout << "U error = " << error << endl;
+}
+
+void Kurs7::outPutRes(vector<double> &res, ofstream &out) {
+    double step = (B - A) / (N-1);
+
+    for (int i = 0; i < res.size(); i++) {
+        out << A + step * (i) << " " << res[i] << endl;
+        
     }
 }

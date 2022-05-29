@@ -35,6 +35,11 @@ double Kurs7::exactSigmaFFPols(double r) {
         (1 + (2 - n) / n * pow(B, 2 / n) / pow(r, 2/n));
 }
 
+double Kurs7::exacSolUpr(double r) {
+    return (Power(A,2)*Power(B,2)*(1 + nu)*(P_a - P_b))/((-Power(A,2) + Power(B,2))*E*r) + 
+   ((1 - 2*nu)*(Power(A,2)*P_a - Power(B,2)*P_b)*r)/((-Power(A,2) + Power(B,2))*E);
+}
+
 double Kurs7::exactSigmaRRPols(double r) {
     double n = 3.0;
     return (P_a * pow(A, 2 / n)) / (pow(B, 2 / n) - pow(A, 2 / n)) * 
